@@ -1,11 +1,21 @@
-import SignInForm from "@/components/auth/SignInForm";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
-};
+import SignInForm from "@/components/auth/SignInForm";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignIn() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/dashboard");
+    }
+  }, [user, loading]);
+
+  if (loading || user) return null;
+
   return <SignInForm />;
 }
