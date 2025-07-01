@@ -1,162 +1,129 @@
+# SEA Catering
 
-# SEA Catering 🍱
-
-**SEA Catering** adalah aplikasi web berbasis Laravel yang menyediakan layanan langganan rencana makanan sehat. Dilengkapi dengan dashboard admin, autentikasi pengguna, fitur testimoni, dan antarmuka frontend modern yang responsif menggunakan Tailwind CSS.
-
----
-
-## 📚 Daftar Isi
-
-- [🧩 Fitur](#-fitur)
-- [📦 Kebutuhan Sistem](#-kebutuhan-sistem)
-- [⚙️ Instalasi](#️-instalasi)
-- [🔐 Konfigurasi Environment](#-konfigurasi-environment)
-- [🧱 Migrasi Database](#-migrasi-database)
-- [📡 API Endpoint](#-api-endpoint)
-- [🌐 Halaman Frontend](#-halaman-frontend)
-- [🛠️ Admin Dashboard](#️-admin-dashboard)
-- [🌟 Testimoni](#-testimoni)
-- [🥗 Meal Plan](#-meal-plan)
-- [📁 Struktur File](#-struktur-file)
-- [🪪 Lisensi](#-lisensi)
+SEA Catering is a modern web application built using **Next.js** and **Tailwind CSS** for healthy meal plan subscriptions. It includes user authentication, testimonial features, a responsive frontend, and admin functionality powered by a Strapi backend.
 
 ---
 
-## 🧩 Fitur
+## Table of Contents
 
-- Autentikasi pengguna (login dan register)
-- CRUD Meal Plan (khusus admin)
-- Listing meal plan + modal detail
-- Dashboard admin: statistik, manajemen user & subscription
-- Pengguna bisa memberikan testimoni + rating
-- Desain responsif dengan Tailwind CSS
-- RESTful API lengkap
-- Manajemen langganan (subscribe, pause, cancel)
-- Halaman kontak dengan info manajer
-- Dashboard pengguna untuk mengelola langganan
-
----
-
-## 📦 Kebutuhan Sistem
-
-- PHP >= 8.1
-- Composer
-- Node.js + npm
-- MySQL/MariaDB
-- Laravel 10+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Environment Setup](#environment-setup)
+- [API Integration](#api-integration)
+- [Frontend Pages](#frontend-pages)
+- [Admin Access](#admin-access)
+- [Testimonials](#testimonials)
+- [Meal Plans](#meal-plans)
+- [Contact Us](#contact-us)
+- [License](#license)
 
 ---
 
-## ⚙️ Instalasi
+## Features
 
-```bash
-git clone https://github.com/yourusername/sea-catering.git
-cd sea-catering
-composer install
-npm install
-npm run build
-```
-
----
-
-## 🔐 Konfigurasi Environment
-
-1. Duplikat file `.env.example` ke `.env`
-2. Ubah konfigurasi DB, mail, dan URL backend kamu
-3. Jalankan perintah:
-
-```bash
-php artisan key:generate
-```
+- User authentication (login/register via Strapi)
+- Meal plan listing and detail modal
+- Admin-only access to meal plan CRUD (via Strapi)
+- Submit and view testimonials with rating
+- Subscription form and status management
+- Responsive UI with Tailwind CSS
+- Environment-based API configuration
 
 ---
 
-## 🧱 Migrasi Database
+## Requirements
 
-```bash
-php artisan migrate
-php artisan db:seed
-php artisan db:seed --class=MealPlanSeeder
-```
+- Node.js & npm
+- Access to hosted Strapi backend (e.g., https://glowing-fitness-2fd3ddb969.strapiapp.com)
+- Modern browser
 
 ---
 
-## 👨‍💼 Akun Demo Admin
+## Installation
 
-- Email: `admin@seacatering.com`
-- Password: `Adminsea@123`
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/sea-catering.git
+   cd sea-catering
+   ```
 
----
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## 🛠️ Admin Dashboard
-
-- Filter data berdasarkan tanggal
-- Lihat statistik langganan, pendapatan, pengguna aktif
-- Kelola user (promote jadi admin)
-
-![Admin Dashboard](/public/assets/Admin_Dashboard.jpeg)
-
----
-
-## 🌟 Testimoni
-
-- Pengguna bisa memberikan rating & review
-- Ditampilkan dalam bentuk carousel (Swiper)
-
-![Testimonials](/public/assets/Rating.jpeg)
-![Testimonials](/public/assets/Review.jpeg)
+3. **Run development server:**
+   ```bash
+   npm run dev
+   ```
 
 ---
 
-## 🥗 Meal Plan
+## Environment Setup
 
-- Daftar plan dengan gambar, harga, deskripsi, fitur
-- Modal detail makanan bisa diakses oleh pengguna
+1. Create a `.env.local` file in the root directory.
 
-![Meal Plans](/public/assets/Meal_Plans.jpeg)
+2. Add the following variables:
 
----
+   ```env
+   NEXT_PUBLIC_API_BASE_URL=https://glowing-fitness-2fd3ddb969.strapiapp.com
+   ```
 
-## 📬 Langganan
-
-- Pengguna memilih jenis plan, hari, alergi, dsb
-- Harga dihitung otomatis
-- Bisa pause atau cancel via dashboard user
-
-![Subscription](/public/assets/Subscriptions.jpeg)
+3. Ensure CORS is properly configured in your Strapi backend to allow requests from your frontend domain.
 
 ---
 
-## 👤 Dashboard Pengguna
+## API Integration
 
-- Lihat dan kelola langganan aktif
-- Bisa *pause* dalam rentang tanggal tertentu
-- Bisa *cancel* langganan
-
-![User Dashboard](/public/assets/User_Dashboard.jpeg)
-
----
-
-## ☎️ Contact Us
-
-- Info kontak manajer disediakan dengan nama dan nomor telepon
-
-![Contact Us](/public/assets/Contact_Us.jpeg)
+- The app fetches data from a Strapi backend using the REST API endpoints.
+- Example endpoint to get meal plans: `/api/meal-plans?populate=*`
+- Example endpoint to login: `/api/auth/local`
+- Example endpoint to post testimonial: `/api/testimonials`
 
 ---
 
-## 📁 Struktur Folder (Contoh)
+## Frontend Pages
 
-```
-/app
-/routes
-/resources
-/public
-.env
-```
+- `/` - Landing page with hero, features, and testimonials
+- `/menu` - Meal plans listing and details modal
+- `/subscribe` - Subscription form
+- `/dashboard` - User dashboard to manage subscriptions (requires login)
+- `/signin` & `/signup` - Auth pages
 
 ---
 
-## 🪪 Lisensi
+## Admin Access
 
-MIT © SEA Catering — 2025
+Demo Account for admin:
+
+- **Email**: admin@seacatering.com
+- **Password**: Adminsea@123
+
+> Only users with the `admin` role can access admin dashboard features
+
+---
+
+## Testimonials
+
+- Users can submit testimonials with a star rating.
+- Testimonials are shown in a Swiper carousel on homepage.
+
+---
+
+## Meal Plans
+
+- Available plans include: Diet, Protein, and Royal.
+- Each has details, benefits, and pricing fetched from Strapi.
+
+---
+
+## Contact Us
+
+- Dedicated page showing contact manager info (name and phone number).
+
+---
+
+## License
+
+This project is licensed under the MIT License.
