@@ -13,7 +13,7 @@ const Contact = () => {
             Get in Touch
           </h1>
           <p className="text-lg text-gray-700">
-            Have any questions or want a free estimate? Reach out to us — we're always happy to help you!
+            Have any questions or want a free estimate? Reach out to us — we&apos;re always happy to help you!
           </p>
 
           <div className="bg-white p-6 rounded-2xl shadow-xl space-y-4">

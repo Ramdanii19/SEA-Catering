@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
-import Image from 'next/image'
 import Rating from './Ratting'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
@@ -29,6 +28,7 @@ export default function Ulasan({ refreshTrigger }: { refreshTrigger: number }) {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/testimonials?populate=*`)
       .then((res) => res.json())
       .then((data) => {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const mapped = (data.data || []).map((item: any) => ({
           id: item.id,
           review: item.review,

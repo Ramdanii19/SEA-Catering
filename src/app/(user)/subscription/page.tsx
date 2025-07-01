@@ -34,6 +34,7 @@ const Subscription = () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meal-plans`);
         const json = await res.json();
 
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const data = json.data.map((item: any) => ({
           id: item.id,
           name: item.name ?? "Unknown",
