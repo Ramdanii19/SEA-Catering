@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
 import { HorizontaLDots } from "../icons";
 import {
-  UserPlusIcon,
   RefreshCwIcon,
   LayoutDashboardIcon,
 } from "lucide-react";
+import Image from "next/image";
 
 type NavItem = {
   name: string;
@@ -55,14 +55,14 @@ const AppSidebar: React.FC = () => {
         <Link href="/">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
-              <img
+              <Image
                 className="dark:hidden"
                 src="/images/logo/logo.png"
                 alt="Logo"
                 width={150}
                 height={40}
               />
-              <img
+              <Image
                 className="hidden dark:block"
                 src="/images/logo/logo.png"
                 alt="Logo"
@@ -71,7 +71,7 @@ const AppSidebar: React.FC = () => {
               />
             </>
           ) : (
-            <img
+            <Image
               src="/images/logo/logo.png"
               alt="Logo"
               width={32}
