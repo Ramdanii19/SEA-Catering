@@ -43,6 +43,7 @@ export default function AllSubscriptions() {
 
   useEffect(() => {
     fetchSubscriptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateStatus = async (id: number, newStatus: Subscription["status_subscription"]) => {
