@@ -1,91 +1,103 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
-
 import Image from 'next/image'
 import Rating from './Ratting'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
+type ReviewBlock = {
+  type: string
+  children: { text: string; type?: string }[]
+}
 
-const reviews = [
-  {
-    name: "Muhamad Ramdani",
-    rating: 5,
-    message: "Makanannya enak dan bergizi. Cocok untuk diet sehat harian saya.",
-    image: "/images/user/owner.jpg"
-  },
-  {
-    name: "Dewi Kartika",
-    rating: 4,
-    message: "Pengiriman cepat dan rasa makanannya sangat lezat. Akan pesan lagi!",
-    image: "/images/user/user-01.jpg"
-  },
-  {
-    name: "Andi Pratama",
-    rating: 3,
-    message: "Beberapa menu kurang sesuai selera saya, tapi secara keseluruhan oke.",
-    image: "/images/user/user-02.jpg"
-  },
-  {
-    name: "Siti Rahma",
-    rating: 5,
-    message: "Saya sangat suka variasi menu yang ditawarkan. Selalu fresh!",
-    image: "/images/user/user-03.jpg"
-  },
-  {
-    name: "Budi Santoso",
-    rating: 4,
-    message: "Porsinya pas dan pelayanan sangat ramah. Recomended untuk langganan!",
-    image: "/images/user/user-04.jpg"
-  }
-]
+type Testimonial = {
+  id: number
+  review: ReviewBlock[]
+  rating: number
+}
 
-export function Ulasan() {
+export default function Ulasan({ refreshTrigger }: { refreshTrigger: number }) {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('http://localhost:1337/api/testimonials?populate=*')
+      .then((res) => res.json())
+      .then((data) => {
+        const mapped = (data.data || []).map((item: any) => ({
+          id: item.id,
+          review: item.review,
+          rating: item.rating,
+        }))
+        setTestimonials(mapped)
+      })
+      .catch((err) => {
+        console.error('Error fetching testimonials:', err)
+      })
+      .finally(() => setLoading(false))
+  }, [refreshTrigger])
+
   return (
-    <div className="w-full flex">
-      <button className="custom-prev ...">
-        <FaChevronLeft className="text-gray-700" size={30} />
-      </button>
-      <Swiper
-        modules={[Navigation]}
-        loop={true}
-        navigation={{
-          nextEl: '.custom-next',
-          prevEl: '.custom-prev',
-        }}
-        spaceBetween={20}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
+    <div className="relative w-full overflow-x-hidden">
+      {/* Swiper + Buttons in one relative container */}
+      {loading ? (
+        <p className="text-gray-500 text-center w-full">Memuat testimoni...</p>
+      ) : testimonials.length > 0 ? (
+        <div className="relative">
+          {/* Tombol Prev */}
+          <button className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10">
+            <FaChevronLeft className="text-gray-700" size={30} />
+          </button>
 
-      >
-        {reviews.map((review, index) => (
-          <SwiperSlide key={index}>
-            <div className='flex flex-col items-center gap-3 p-4 rounded-lg h-full shadow-md bg-white'>
-              <Image
-                src={review.image}
-                alt={review.name}
-                width={80}
-                height={80}
-                className='rounded-full object-cover'
-              />
-              <p className="font-semibold">{review.name}</p>
-              <Rating rating={review.rating} />
-              <p className='text-center text-sm text-gray-600'>{review.message}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <button className="custom-next ...">
-        <FaChevronRight className="text-gray-700" size={30} />
-      </button>
+          {/* Swiper */}
+          <Swiper
+            modules={[Navigation]}
+            loop={true}
+            navigation={{
+              nextEl: '.custom-next',
+              prevEl: '.custom-prev',
+            }}
+            spaceBetween={20}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="px-10"
+          >
+            {testimonials.map((item) => (
+              <SwiperSlide key={item.id} className="h-full min-w-0">
+                <div className="flex flex-col items-center gap-3 p-4 rounded-lg h-full shadow-md bg-white">
+                  <Image
+                    src="/images/user/default.jpg"
+                    alt="User"
+                    width={80}
+                    height={80}
+                    className="rounded-full object-cover"
+                  />
+                  <p className="font-semibold">User</p>
+                  <Rating rating={item.rating} />
+                  <p className="text-center text-sm text-gray-600">
+                    {item.review?.[0]?.children?.[0]?.text || 'Tidak ada review'}
+                  </p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Tombol Next */}
+          <button className="custom-next absolute right-0 top-1/2 -translate-y-1/2 z-10">
+            <FaChevronRight className="text-gray-700" size={30} />
+          </button>
+        </div>
+      ) : (
+        <p className="text-gray-500 text-center w-full">Belum ada testimoni</p>
+      )}
     </div>
   )
 }
-
-
