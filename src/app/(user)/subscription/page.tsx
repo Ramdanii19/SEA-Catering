@@ -31,7 +31,7 @@ const Subscription = () => {
   useEffect(() => {
     const fetchMealPlans = async () => {
       try {
-        const res = await fetch("http://localhost:1337/api/meal-plans");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/meal-plans`);
         const json = await res.json();
 
         const data = json.data.map((item: any) => ({
@@ -98,7 +98,7 @@ const Subscription = () => {
 
     try {
       setIsSubmitting(true);
-      const res = await fetch("http://localhost:1337/api/subscriptions", {
+      const res = await fetch(`h${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscriptions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

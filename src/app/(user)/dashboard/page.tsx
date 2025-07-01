@@ -39,7 +39,6 @@ const Dashboard = () => {
       return;
     }
 
-
     const jwt = localStorage.getItem("jwt");
 
     const payload = {
@@ -62,7 +61,7 @@ const Dashboard = () => {
 
     try {
       setIsSubmitting(true);
-      const res = await fetch("http://localhost:1337/api/testimonials", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/testimonials`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +75,7 @@ const Dashboard = () => {
         setMessage("");
         setRating(5);
         setHasSubmitted(true);
-        setRefreshTrigger(prev => prev + 1); // 🔁 Trigger refresh untuk <Ulasan />
+        setRefreshTrigger((prev) => prev + 1);
       } else {
         const err = await res.json();
         alert("Gagal mengirim ulasan: " + err?.error?.message);
@@ -96,7 +95,7 @@ const Dashboard = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:1337/api/testimonials?filters[users_permissions_user][id][$eq]=${user.id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/testimonials?filters[users_permissions_user][id][$eq]=${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -115,23 +114,21 @@ const Dashboard = () => {
     if (user) fetchExistingReview();
   }, [user]);
 
-
-
   if (loading) return null;
 
   return (
     <div className="w-full">
       {/* Hero Section */}
       <div className="h-screen mb-10 relative">
-        <div className="absolute h-screen w-7/12 -z-50">
+        <div className="absolute h-screen w-7/12 -z-50 hidden lg:block">
           <Image src="/Cover.png" fill alt="cover" />
         </div>
-        <div className="absolute right-0 top-0 h-screen w-3/4 -z-40">
+        <div className="absolute right-0 top-0 h-screen w-3/4 -z-40 hidden lg:block">
           <Image src="/BG-Hero.png" fill alt="bg-hero" />
         </div>
-        <div className="flex justify-between h-full max-w-full overflow-hidden">
-          <div className="flex flex-col gap-4 justify-center px-6">
-            <p className="text-5xl font-extrabold text-primary">
+        <div className="flex flex-col lg:flex-row justify-between h-full max-w-full overflow-hidden">
+          <div className="flex flex-col gap-4 justify-center px-6 py-10 lg:py-0">
+            <p className="text-4xl lg:text-5xl font-extrabold text-primary">
               Healthy Food, Anytime, Anywhere
             </p>
             <p className="text-lg font-medium text-[#484848]">
@@ -148,12 +145,13 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          <div className="-mt-10 -mr-20">
+          <div className="flex justify-center items-center mt-10 lg:mt-0">
             <Image
               src="/makanan.png"
               alt="makanan"
-              width={700}
-              height={700}
+              width={350}
+              height={350}
+              className="lg:w-[700px] lg:h-[700px] object-contain"
             />
           </div>
         </div>
@@ -163,7 +161,7 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row items-center gap-8 px-6 py-12 md:px-16 md:py-20 bg-white">
         <div className="flex-1">
           <Image
-            src="/images/healthy-food.jpg"
+            src="/diet.jpg"
             alt="Healthy Food"
             width={600}
             height={400}
@@ -281,11 +279,10 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Footer harus tetap berada DI DALAM return */}
       <div className="mx-[-40px]">
         <Footer />
       </div>
-    </div> // Menutup div utama
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import './globals.css';
 
 import { SidebarProvider } from '@/context/SidebarContext';
 import { ThemeProvider } from '@/context/ThemeContext';
-import { AuthProvider } from '@/context/AuthContext'; // ✅ Tambahkan ini
+import { AuthProvider } from '@/context/AuthContext';
 
 const outfit = Outfit({
   subsets: ["latin"],

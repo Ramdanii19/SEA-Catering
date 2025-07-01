@@ -22,7 +22,7 @@ export default function SignInForm() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("http://localhost:1337/api/auth/local", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/local`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

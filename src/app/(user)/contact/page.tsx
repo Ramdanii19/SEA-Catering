@@ -27,11 +27,11 @@ const Contact = () => {
             </div>
             <div className="flex items-center gap-4">
               <FaEnvelope className="text-primary text-xl" />
-              <p className="text-gray-800">contact@moldexpertsofatlanta.com</p>
+              <p className="text-gray-800">contact@Brian.com</p>
             </div>
             <div className="flex items-center gap-4">
               <FaMapMarkerAlt className="text-primary text-xl" />
-              <p className="text-gray-800">2271 Rodao Dr SW, Lilburn, GA 30047</p>
+              <p className="text-gray-800">2271 Bandung, Lilburn, GA 30047</p>
             </div>
             <div className="flex items-start gap-4">
               <FaClock className="text-primary text-xl mt-1" />

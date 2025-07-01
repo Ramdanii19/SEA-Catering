@@ -27,7 +27,7 @@ export default function AllSubscriptions() {
   const fetchSubscriptions = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:1337/api/subscriptions?populate=meal_plan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscriptions?populate=meal_plan`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -49,7 +49,7 @@ export default function AllSubscriptions() {
     if (!jwt) return;
 
     try {
-      const res = await fetch(`http://localhost:1337/api/subscriptions/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subscriptions/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

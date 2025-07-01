@@ -23,16 +23,6 @@ const navItems: NavItem[] = [
     path: "/",
   },
   {
-    name: "User",
-    icon: <UserPlusIcon size={20} />,
-    path: "/user",
-  },
-  {
-    name: "Subscription",
-    icon: <UserPlusIcon size={20} />,
-    path: "/subscription-active",
-  },
-  {
     name: "Logout",
     icon: <RefreshCwIcon size={20} />,
     path: "/reactivations",

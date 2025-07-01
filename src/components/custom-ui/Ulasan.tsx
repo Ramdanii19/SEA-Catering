@@ -26,7 +26,7 @@ export default function Ulasan({ refreshTrigger }: { refreshTrigger: number }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:1337/api/testimonials?populate=*')
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/testimonials?populate=*`)
       .then((res) => res.json())
       .then((data) => {
         const mapped = (data.data || []).map((item: any) => ({
@@ -73,13 +73,6 @@ export default function Ulasan({ refreshTrigger }: { refreshTrigger: number }) {
             {testimonials.map((item) => (
               <SwiperSlide key={item.id} className="h-full min-w-0">
                 <div className="flex flex-col items-center gap-3 p-4 rounded-lg h-full shadow-md bg-white">
-                  <Image
-                    src="/images/user/default.jpg"
-                    alt="User"
-                    width={80}
-                    height={80}
-                    className="rounded-full object-cover"
-                  />
                   <p className="font-semibold">User</p>
                   <Rating rating={item.rating} />
                   <p className="text-center text-sm text-gray-600">

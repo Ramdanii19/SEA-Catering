@@ -12,6 +12,7 @@ type User = {
   id: number;
   username: string;
   email: string;
+  role: string;
 };
 
 type AuthContextType = {
@@ -26,7 +27,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // ✅ tambahkan loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -36,9 +37,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(JSON.parse(userData));
     }
 
-    setLoading(false); // ✅ setelah selesai cek localStorage, ubah loading ke false
+    setLoading(false);
 
-    // Jangan redirect langsung di sini. Redirect dilakukan oleh komponen halaman
   }, []);
 
   const login = (userData: User, token: string) => {
